@@ -2,13 +2,13 @@ const connect = require("../../../config/db.config");
 const CustomError = require("../../../utils/Error");
 const Grade = require("../../models/grade.model");
 
-const createGrade = async (req, res) => {
+const getAllGrades = async (req, res) => {
     try {
         await connect();
-        const { grade_name ,grade_letter } = req.body;
-        await Grade.create({ grade_name ,grade_letter})
-        return res.status(201).json({
-             message: "Grade is create successfully",
+        const data = await Grade.find().sort({ "createdAt": -1 }).select('-__v -createdAt -updatedAt');
+        return res.status(200).json({
+             message: "Get All grades successfully",
+             data,
              success: true
         })
 
@@ -16,4 +16,4 @@ const createGrade = async (req, res) => {
         return res.status(500).json(CustomError.internalServerError(error));
     }
 }
-module.exports = createGrade;
+module.exports = getAllGrades;

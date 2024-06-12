@@ -1,17 +1,19 @@
 const express = require('express');
+const validate = require('../../middlewares/validate.middleware');
 const createMaping = require('../controllers/mapping/createMaping');
 const getAllMapings = require('../controllers/mapping/getAllMapings');
 const updateMaping = require('../controllers/mapping/updateMaping');
 const getMapingByUserRole = require('./../controllers/mapping/getMapingByUserRole')
-const {adminMiddleware, currentUserMiddleware} = require('./../../middlewares/auth.middleware');
+const {roleAuthorizedMiddleware } = require('./../../middlewares/auth.middleware');
+const { createMapingSchema, updateMapingSchema } = require('../validators/maping.validator');
 
 
 const router = express.Router();
 
-router.post('/mapings', adminMiddleware, createMaping);
-router.get('/mapings', adminMiddleware, getAllMapings);
-router.put('/mapings/:id',adminMiddleware, updateMaping);
-router.get('/mapings/:roleId',currentUserMiddleware, getMapingByUserRole);
+router.get('/mapings', roleAuthorizedMiddleware, getAllMapings);
+router.post('/mapings', validate(createMapingSchema), roleAuthorizedMiddleware, createMaping);
+router.put('/mapings/:id', validate(updateMapingSchema), roleAuthorizedMiddleware, updateMaping);
+router.get('/mapings/:roleId', roleAuthorizedMiddleware , getMapingByUserRole);
 
 module.exports = router;
 

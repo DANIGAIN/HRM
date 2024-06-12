@@ -4,7 +4,6 @@ const gradeSchema = new mongoose.Schema({
         type:String,
         maxlength:255,
         required: true,
-        unique:true
     },
     grade_letter:{
         type:String,

@@ -4,13 +4,14 @@ const CustomError = require('./../../../utils/Error');
 const getMapingByUserRole = async (req, res) => {
     try {
         await connect()
-        const {roleId} = req.params;
-        console.log(roleId)
-        const data = await RC_Maping.find({role:roleId})
-        .populate('role component' ,'_id name isActive');
+        const { roleId } = req.params;
+        const data = await RC_Maping.find({ role: roleId })
+            .populate('role component', '_id name isActive')
+            .sort({ "createdAt": -1 })
+            .select('-createdAt -updatedAt -__v');
         return res.status(201).json({
-            message: "Find  component by user role Successfully",
-            data, 
+            message: "Find  maps by user role Successfully",
+            data,
             success: true
         })
 

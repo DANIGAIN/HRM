@@ -6,7 +6,7 @@ const getAllRoles = async (req, res) => {
         await connect()
         const data = await Role.find().sort({ "createdAt": -1 }).select('-__v');
         return res.status(201).json({
-            message: "Find all Ssection Successfully",
+            message: "Find all roles Successfully",
             data,
             success: true
         }) 

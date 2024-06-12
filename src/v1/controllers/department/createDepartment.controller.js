@@ -1,14 +1,13 @@
 const connect = require("../../../config/db.config");
 const CustomError = require("../../../utils/Error");
-const Grade = require("../../models/grade.model");
+const  Department = require("../../models/department.model");
 
-const createGrade = async (req, res) => {
+const createDepartment = async (req, res) => {
     try {
         await connect();
-        const { grade_name ,grade_letter } = req.body;
-        await Grade.create({ grade_name ,grade_letter})
+        await Department.create(req.body)
         return res.status(201).json({
-             message: "Grade is create successfully",
+             message: "Department is create successfully",
              success: true
         })
 
@@ -16,4 +15,4 @@ const createGrade = async (req, res) => {
         return res.status(500).json(CustomError.internalServerError(error));
     }
 }
-module.exports = createGrade;
+module.exports = createDepartment;

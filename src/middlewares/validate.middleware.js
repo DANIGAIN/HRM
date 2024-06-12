@@ -7,9 +7,9 @@ const validate = (schema) =>  async (req, res, next) =>{
         next()
 
     }catch(error){
-        const message = error.errors
-        return res.status(422).json(CustomError.validationError(message));
+       const message = error.errors ? error?.errors[0]?.message : '';
+       return res.status(422).json(CustomError.validationError(message));
     }
 }
 
-module.exports = validate ;
+module.exports = validate ; 

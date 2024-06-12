@@ -4,15 +4,11 @@ const CustomError = require('./../../../utils/Error');
 const createRole = async (req, res) => {
     try {
         await connect()
-        const { name } = req.body;
 
-        if (!name) {
-            return res.json(CustomError.badRequestError({ message: "Name is required" }))
-        }
-        const data = await Role.create(req.body);
+        await Role.create(req.body);
+
         return res.status(201).json({
             message: "Role is created Successfully",
-            data,
             success: true
         })
    

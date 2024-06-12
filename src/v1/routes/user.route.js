@@ -6,17 +6,17 @@ const updateUser = require('./../controllers/users/updateUser.controller');
 const getProfileUser = require('./../controllers/users/getProfileUser.controller');
 const getUser = require('./../controllers/users/getUser.controller');
 const logoutUser = require('./../controllers/users/logoutUser.controller');
-const {adminMiddleware} = require('./../../middlewares/auth.middleware');
+const {roleAuthorizedMiddleware} = require('./../../middlewares/auth.middleware');
 
 
 const router = express.Router();
 
-router.post('/users', adminMiddleware, createUser);
+router.post('/users', roleAuthorizedMiddleware, createUser);
 router.post('/users/login', loginUser);
-router.get('/users',adminMiddleware, getAllUsers);
-router.put('/users/:id',adminMiddleware, updateUser);
+router.get('/users',roleAuthorizedMiddleware, getAllUsers);
+router.put('/users/:id',roleAuthorizedMiddleware, updateUser);
 router.get('/users/profile',getProfileUser);
-router.get('/users/:id',adminMiddleware, getUser);
+router.get('/users/:id',roleAuthorizedMiddleware, getUser);
 router.delete('/users/logout/:id', logoutUser);
    
 module.exports = router;

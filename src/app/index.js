@@ -5,8 +5,12 @@ const roleRoutesV1 = require('./../v1/routes/role.route');
 const componentRoutesV1 = require('./../v1/routes/compoment.route');
 const mapingRoutesV1 = require('./../v1/routes/maping.route');
 const gradeRoutesV1 = require('././../v1/routes/grade.route');
+const departmentRoutesV1 = require('./../v1/routes/department.route');
 const cors = require("cors");
 const app  = express();
+
+require('dotenv').config()
+
 app.use(
     cors({  
         credentials:true,
@@ -25,6 +29,7 @@ app.use('/api/v1', roleRoutesV1)
 app.use('/api/v1', componentRoutesV1);
 app.use('/api/v1', mapingRoutesV1); 
 app.use('/api/v1', gradeRoutesV1);
+app.use('/api/v1', departmentRoutesV1)
   
 
 app.listen(process.env.PORT, ()=>{

@@ -1,14 +1,16 @@
 const express = require('express');
+const validate = require('./../../middlewares/validate.middleware');
 const createRole = require('./../controllers/roles/createRole.controller');
 const getAllRoles = require('./../controllers/roles/getAllRoles.controller');
 const updateRole = require('./../controllers/roles/updateRole.controller');
-const {adminMiddleware} = require('./../../middlewares/auth.middleware');
+const {roleAuthorizedMiddleware} = require('./../../middlewares/auth.middleware');
+const { createRoleSchema, updateRoleSchema } = require('../validators/role.validator');
 
 
 const router = express.Router();
 
-router.post('/roles',adminMiddleware, createRole);
-router.get('/roles',adminMiddleware, getAllRoles);
-router.put('/roles/:id',adminMiddleware, updateRole);
+router.get('/roles',roleAuthorizedMiddleware, getAllRoles);
+router.post('/roles', validate(createRoleSchema), roleAuthorizedMiddleware, createRole);
+router.put('/roles/:id', validate(updateRoleSchema), roleAuthorizedMiddleware, updateRole);
 
 module.exports = router;

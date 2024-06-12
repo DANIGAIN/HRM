@@ -6,10 +6,11 @@ const getAllMapings = async (req, res) => {
         await connect()
         const data = await RC_Maping.find()
         .populate('role component' ,'_id name')
-        .sort({ "createdAt": -1 }).select('-__v')
+        .sort({ "createdAt": -1 })
+        .select('-createdAt -updatedAt -__v')
         .exec();
-        return res.status(201).json({
-            message: "Find all components Successfully",
+        return res.status(200).json({
+            message: "Find all maps Successfully",
             data,
             success: true
         })
