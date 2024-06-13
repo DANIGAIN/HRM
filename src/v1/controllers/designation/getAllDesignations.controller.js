@@ -8,7 +8,7 @@ const getAllDesignations = async (req, res) => {
         const data = await Designation.find()
            .sort({ "createdAt": -1 })
            .select('-__v -createdAt -updatedAt')
-           .populate('grade' ,'_id grade_name grade_letter');
+           .populate('grade_id' ,'_id grade_name grade_letter');
         return res.status(201).json({
              message: "Get All designation successfully",
              data, 
