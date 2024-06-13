@@ -9,11 +9,6 @@ const loginUser = async(req, res) => {
     await connect()
     const {email, password} = req.body;
 
-    const user = await User.findOne({email}).populate('role', '_id name');
-    if (!user){
-        return res.status(404).send(CustomError.unauthorizeError({ message:"User Not found" }))
-    }
-
     const matched = await comparePassword(password, user.password);
     if(!matched){
         return res.status(400).json(CustomError.badRequestError({ message: "Incurrent Password"}))

@@ -6,7 +6,7 @@ const updateDepartment = async (req, res) => {
     try {
         await connect();
         const {id} = req.params;
-        await Department.findByIdAndUpdate({_id:id} , {$set:req.body});
+        await Department.findByIdAndUpdate({_id:id} , {$set:req.body},{ new: true });
         return res.status(200).json({
              message: "Update department successfully",
              success: true

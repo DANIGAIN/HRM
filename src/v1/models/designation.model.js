@@ -7,8 +7,7 @@ const designationSchema = new mongoose.Schema({
         unique:true
     },
     grade_id:{
-        type:mongoose.Types.ObjectId,
-        ref:"Grade"
+        type:String,
     },
     is_active:{
         type:Boolean,

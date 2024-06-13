@@ -4,7 +4,6 @@ const userRoutesV1 = require('./../v1/routes/user.route');
 const roleRoutesV1 = require('./../v1/routes/role.route');
 const componentRoutesV1 = require('./../v1/routes/compoment.route');
 const mapingRoutesV1 = require('./../v1/routes/maping.route');
-const gradeRoutesV1 = require('././../v1/routes/grade.route');
 const departmentRoutesV1 = require('./../v1/routes/department.route');
 const designationsRoutesV1 = require('./../v1/routes/designation.route');
 const cors = require("cors");
@@ -29,7 +28,6 @@ app.use('/api/v1', userRoutesV1)
 app.use('/api/v1', roleRoutesV1)
 app.use('/api/v1', componentRoutesV1);
 app.use('/api/v1', mapingRoutesV1); 
-app.use('/api/v1', gradeRoutesV1);
 app.use('/api/v1', departmentRoutesV1)
 app.use('/api/v1' , designationsRoutesV1);
   

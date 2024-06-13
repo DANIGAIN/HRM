@@ -7,7 +7,10 @@ const getUser = async (req, res) => {
         const {id} = req.params;
         const data = await User.findById(id)
              .select('-__v -password')
-             .populate('role', '_id name').lean();
+             .populate('role', '_id name')
+             .populate('designation_id','_id deg_name is_active grade_id')
+             .populate('department_id','_id dpt_name parent_dpt_id is_active') 
+             .lean();
         data.links = {
             permission: `/mapings/${data.role._id}`
         }

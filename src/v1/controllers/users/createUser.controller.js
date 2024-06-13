@@ -5,19 +5,17 @@ const User = require('../../models/user.model');
 const createUser = async(req, res) => {
     try {
     await connect()   
-    const {email, password,role,username} = req.body;
-  
+    const { password } = req.body;
   
     const hash = await hashPassword(password)
-    const user = await User.create();
-    console.log(user);
-    const data = await User.findOne({_id:user._id})
-        .select('-__v -password')
-        .populate('role', '_id name');
+    req.body.password = hash;
+    await User.create(req.body);
 
     return res.status(201).json({
-         message:"User is created successfully",
-         data,
+         message:"User created successfully",
+         links:{
+            login:"/users/login"
+         },
          success:true,
     })
     } catch (error) {

@@ -3,8 +3,7 @@ const connect = require('../../../config/db.config');
 
 const logoutUser = async(req, res) =>{
    
-    try{
-       
+    try{ 
         const {id} = req.params;
         res.clearCookie('token');
         return res.status(200).json({

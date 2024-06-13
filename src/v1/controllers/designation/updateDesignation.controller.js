@@ -10,7 +10,7 @@ const updateDesignation = async (req, res) => {
         if(!data){
             return res.status(400).json(CustomError.badRequestError({message:"This designation does not exist"}))
         }
-        await Designation.findByIdAndUpdate({_id:id},{$set:req.body})
+        await Designation.findByIdAndUpdate({_id:id},{$set:req.body},{ new: true })
         return res.status(201).json({
              message: "Designation is update successfully",
              success: true

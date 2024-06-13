@@ -13,4 +13,4 @@ const componentSchema = new mongoose.Schema({
     timestamps:true
 })
 const Component = mongoose.models.Component || mongoose.model("Component", componentSchema);
-module.exports =  Component;
+module.exports =  Component;   

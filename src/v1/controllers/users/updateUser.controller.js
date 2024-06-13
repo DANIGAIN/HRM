@@ -7,17 +7,9 @@ const updateUser = async (req, res) => {
     try {
         await connect()
         const { id } = req.params;
-        const user = await User.findById(id);
-        if (!user || id != user._id) {
-            return res.status(404).json(CustomError.notFoundError({ message: "User can not found" }));
-        }
-        const data = req.body;
-        const obj = {};
-        if (data?.email) obj.email = data.email;
-        if (data?.username) obj.username = data.username;
-        if (data?.password) obj.password = await hashPassword(data.password);
-        if (data?.role) obj.role = data.role;
-        await User.findByIdAndUpdate({ _id: id }, { $set: obj }, { new: true });
+        const {password} = req.body;
+        if (password) req.body.password = await hashPassword(password);
+        await User.findByIdAndUpdate({ _id: id }, { $set: req.body}, { new: true });
         const updateUser = await User.findById(id).populate('role', '_id name');
         jwt.sign({ email: updateUser.email, role: updateUser.role.name, username: updateUser.username }, process.env.JWT_SECRET, {}, (error, token) => {
             if (error) throw error;

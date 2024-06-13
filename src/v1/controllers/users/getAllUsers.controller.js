@@ -6,8 +6,10 @@ const getAllUsers = async (req, res) => {
         await connect()
         const data = await User.find()
              .sort({ "createdAt": -1 })
-             .select('-__v -password')
-             .populate('role', '_id name');
+             .select('-__v -password -createdAt -updatedAt')
+             .populate('role', '_id name')
+             .populate('designation_id','_id deg_name is_active grade_id')
+             .populate('department_id','_id dpt_name parent_dpt_id is_active') 
 
         return res.status(201).json({
             message: "Find all user Successfully",
