@@ -11,7 +11,7 @@ const updateUser = async (req, res) => {
         if (password) req.body.password = await hashPassword(password);
         await User.findByIdAndUpdate({ _id: id }, { $set: req.body}, { new: true });
         const updateUser = await User.findById(id).populate('role', '_id name');
-        jwt.sign({ email: updateUser.email, role: updateUser.role.name, username: updateUser.username }, process.env.JWT_SECRET, {}, (error, token) => {
+        jwt.sign({_id: id, email: updateUser.email, role: updateUser.role._id, full_name: updateUser.full_name }, process.env.JWT_SECRET, {}, (error, token) => {
             if (error) throw error;
             res.cookie('token', token, {
                 expires: new Date(Date.now() + 2589200000),

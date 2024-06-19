@@ -7,6 +7,7 @@ const mapingRoutesV1 = require('./../v1/routes/maping.route');
 const departmentRoutesV1 = require('./../v1/routes/department.route');
 const designationsRoutesV1 = require('./../v1/routes/designation.route');
 const cors = require("cors");
+const ErrorHandler = require('../middlewares/ErrorHandle.middleware');
 const app  = express();
 
 require('dotenv').config()
@@ -31,6 +32,7 @@ app.use('/api/v1', mapingRoutesV1);
 app.use('/api/v1', departmentRoutesV1)
 app.use('/api/v1' , designationsRoutesV1);
   
+app.use(ErrorHandler);
 
 app.listen(process.env.PORT, ()=>{
     console.log(`app is running .... on port : ${process.env.PORT}`);

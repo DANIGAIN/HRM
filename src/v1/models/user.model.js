@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
         minlength: 4,
         maxlength: 255
     },
-    role:{
+    role:{   
         type: mongoose.Types.ObjectId,
         ref:'Role'
     },

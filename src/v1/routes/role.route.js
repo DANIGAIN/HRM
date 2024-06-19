@@ -10,7 +10,7 @@ const { createRoleSchema, updateRoleSchema } = require('../validators/role.valid
 const router = express.Router();
 
 router.get('/roles',roleAuthorizedMiddleware, getAllRoles);
-router.post('/roles', validate(createRoleSchema), roleAuthorizedMiddleware, createRole);
+router.post('/roles', validate(createRoleSchema), createRole);
 router.put('/roles/:id', validate(updateRoleSchema), roleAuthorizedMiddleware, updateRole);
 
 module.exports = router;

@@ -6,7 +6,6 @@ const createUser = async(req, res) => {
     try {
     await connect()   
     const { password } = req.body;
-  
     const hash = await hashPassword(password)
     req.body.password = hash;
     await User.create(req.body);

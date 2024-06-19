@@ -1,6 +1,7 @@
 const { z } = require('zod');
 const connect = require('../../config/db.config');
 const Role = require('../models/role.model');
+const User = require('./../models/user.model');
 const Designation = require('./../models/designation.model')
 const Department = require('./../models/department.model');
 
@@ -12,7 +13,15 @@ const createUserSchema = z.object({
     email: z
         .string({ required_error: "Email is required" })
         .min(1, { message: "Email should be at min 1 character" })
-        .email({ message: "This is a email field" }),
+        .email({ message: "This is a email field" })
+        .refine(
+            async (email) => {
+                await connect();
+                const exist = await User.findOne({email});
+                return !exist
+            }, "This email is already exists"   
+        ),   
+        
     password: z
         .string()
         .min(4, { message: "Password should be at min 4 character" })
