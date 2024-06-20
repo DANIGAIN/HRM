@@ -1,16 +1,21 @@
 const connect = require('./../../config/db.config');
 const RC_Maping = require('./../../v1/models/r_c_maping.model');
-const getPermisson = async(roleId) =>{
+const Component = require('./../models/component.model');
+const getPermisson = async(roleId , path ) =>{
     try{
         await connect();
-        const data = await RC_Maping.find({ role: roleId })
-                .populate('role component', '_id name isActive')
+                const component = await Component.findOne({name:path})
+                const data = await RC_Maping.findOne({
+                  role: roleId,
+                  component:component._id
+                })
+       
         return data ;
-
+  
     }catch(error){
         console.log(error)
     }     
-    return data ;    
+    // return data ;    
 
 }
 module.exports = getPermisson;

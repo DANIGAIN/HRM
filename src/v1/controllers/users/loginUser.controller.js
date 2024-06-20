@@ -8,9 +8,9 @@ const loginUser = async (req, res) => {
     try {
         await connect()
         const { email, password } = req.body;
-        const user = await User.findOne({email});
+        const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json(CustomError.badRequestError({ message: "User can not exist"}))
+            return res.status(400).json(CustomError.badRequestError({ message: "User can not exist" }))
         }
 
         const matched = await comparePassword(password, user.password);
