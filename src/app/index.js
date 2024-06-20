@@ -8,15 +8,17 @@ const departmentRoutesV1 = require('./../v1/routes/department.route');
 const designationsRoutesV1 = require('./../v1/routes/designation.route');
 const procurementRoutesV1 = require('./../v1/routes/procurement.route');
 const ErrorHandler = require('../middlewares/ErrorHandle.middleware');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./../../swagger-output.json');
 const cors = require("cors");
 const app  = express();
 
 require('dotenv').config()
 
 app.use(
-    cors({  
+    cors({ 
         credentials:true,
-        origin:'http://localhost:5173'
+        origin:'*'
     })
 )   
 
@@ -33,8 +35,10 @@ app.use('/api/v1', mapingRoutesV1);
 app.use('/api/v1', departmentRoutesV1)
 app.use('/api/v1' , designationsRoutesV1);
 app.use('/api/v1',procurementRoutesV1);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   
-app.use(ErrorHandler);
+app.use(ErrorHandler);  
 
 app.listen(process.env.PORT, ()=>{
     console.log(`app is running .... on port : ${process.env.PORT}`);

@@ -11,3 +11,8 @@
 - user can view & update self profile .
 
 [design ER diagram](https://dbdiagram.io/d/UNICON_PROJECT-666acce7a179551be6cb0403)
+
+[This is the api documentaion ](http://localhost:8000/api-docs)
+
+
+
