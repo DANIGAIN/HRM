@@ -26,6 +26,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({extended:false}));
 
+app.get('/', (req,res)=>{
+    res.send("hello")
+})
+
 //routes --->   
              
 app.use('/api/v1', userRoutesV1)
