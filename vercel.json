@@ -1,0 +1,9 @@
+{
+    "version": 1,
+    "rewrites": [
+        {
+            "source": "./src/v1/routes/(*.*)",
+            "destination": "/api/v1"
+        }
+    ]
+}
